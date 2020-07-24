@@ -16,18 +16,6 @@ const pool = new Pool({
  * @param {String} email The email of the user.
  * @return {Promise<{}>} A promise to the user.
  */
-// const getUserWithEmail = function(email) {
-//   let user;
-//   for (const userId in users) {
-//     user = users[userId];
-//     if (user.email.toLowerCase() === email.toLowerCase()) {
-//       break;
-//     } else {
-//       user = null;
-//     }
-//   }
-//   return Promise.resolve(user);
-// }
 
 ///////-------------------------------------------------------//////
 
@@ -152,7 +140,7 @@ const getAllProperties = function(options, limit = 10) {
   let queryString = `
   SELECT properties.*, avg(property_reviews.rating) as average_rating
   FROM properties
-  JOIN property_reviews ON properties.id = property_id
+  LEFT JOIN property_reviews ON properties.id = property_id
   `;
 
   // 3
@@ -204,6 +192,9 @@ const getAllProperties = function(options, limit = 10) {
 exports.getAllProperties = getAllProperties;
 
 
+///////-------------------------------------------------------//////
+
+
 /**
  * Add a property to the database
  * @param {{}} property An object containing all of the property details.
@@ -253,8 +244,3 @@ const addProperty = function(property) {
 
 exports.addProperty = addProperty;
 
-
-// const propertyId = Object.keys(properties).length + 1;
-  // property.id = propertyId;
-  // properties[propertyId] = property;
-  // return Promise.resolve(property);
